@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {getTodos} from "./redux/actions";
+import {Header} from "./components/Header/Header";
+import {TodoForm} from "./components/TodoForm/TodoForm";
+import {TodoList} from "./components/TodoList/TodoList";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getTodos())
+    }, [])
+    return (
+        <>
+            <Header/>
+            <main>
+                <section>
+                    <div className='container pt-3'>
+                        <TodoForm/>
+                        <h2 className='pt-3'>Новые дела</h2>
+                        <TodoList />
+                    </div>
+                </section>
+            </main>
+        </>
+    );
 }
 
 export default App;
